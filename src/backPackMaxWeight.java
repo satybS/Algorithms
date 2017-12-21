@@ -1,15 +1,17 @@
 import java.util.Scanner;
 
-public class backPackExactWeight {
+public class backPackMaxWeight {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int goldBarsNum = in.nextInt();
+        int mass = in.nextInt();
+
         int[] goldBars = new int[goldBarsNum + 1];
         for (int i = 1; i<=goldBarsNum; i++) {
             goldBars[i] = in.nextInt();
         }
-        int mass = in.nextInt();
+
         in.close();
         checkWeightAllowance(goldBars, goldBarsNum, mass);
     }
@@ -32,11 +34,6 @@ public class backPackExactWeight {
             }
         }
         System.out.println(dp[mass][goldBarsNum]);
-//        if (dp[mass][goldBarsNum] == mass) {
-//            System.out.println("YES");
-//            return;
-//        }
-//        System.out.println("NO");
 
     }
 }
