@@ -19,19 +19,20 @@ public class BackPackProblem {
         in.close();
     }
 
-    public static void maxBackPackValue(int num, int mass, int[] weights, int[] values) {
-        int[][] dp = new int[mass+1][num+1];
+    public static void maxBackPackValue(int k, int W, int[] w, int[] p) {
+        int [][] A = new int [k+1][W+1];
+        for(int n=0;n<=W;++n)
+            A[0][n]=0;
 
-        for (int i = 1; i <= mass; i++) {
-            for (int j = 1; j <= num; j++) {
-                int weight = weights[j];
-                int value = values[j];
-                dp[i][j] = dp[i-1][j-1];
-                if (weight <= i && dp[i-weight][j-1] + value >  dp[i][j]) {
-                    dp[i][j] = dp[i-weight][j-1] + value;
-                }
+        for(int s=1;s<=k;++s)
+        {
+            for( int n=0;n<=W;++n)
+            {
+                A[s][n]=A[s-1][n];
+                if ( n>=w[s] && ( A[s-1][n-w[s]]+p[s] > A[s][n]) )
+                    A[s][n] = A[s-1][n-w[s]]+p[s];
             }
         }
-        System.out.println(dp[mass][num]);
+        System.out.println(A[k][W]);
     }
 }
