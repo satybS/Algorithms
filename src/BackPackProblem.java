@@ -27,8 +27,8 @@ public class BackPackProblem {
                 int weight = weights[j];
                 int value = values[j];
                 dp[i][j] = dp[i-1][j-1];
-                if (weight <= i) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i-weight][j-1] + value);
+                if (weight <= i && dp[i-weight][j-1] + value >  dp[i][j]) {
+                    dp[i][j] = dp[i-weight][j-1] + value;
                 }
             }
         }
