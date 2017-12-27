@@ -1,7 +1,8 @@
-import java.util.LinkedList;
+package dp;
+
 import java.util.Scanner;
 
-public class LargestIncreasingSubsequenceWithMemory2 {
+public class LargestIncreasingSubsequenceWithMemory {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -11,42 +12,33 @@ public class LargestIncreasingSubsequenceWithMemory2 {
             array[i] = in.nextInt();
         }
         in.close();
-        calculateCommonIncreasingSubSequence(array);
+        System.out.println(calculateCommonIncreasingSubSequence(array));
     }
 
-    public static void calculateCommonIncreasingSubSequence(int[] array) {
+    public static String calculateCommonIncreasingSubSequence(int[] array) {
         int n = array.length;
         int [] dp = new int[n];
-        int [] paths = new int[n];
+        String [] memory = new String[n];
         int maxIndex = 0;
         int max = Integer.MIN_VALUE;
         for (int i = 0; i< n; i++) {
             dp[i] = 1;
-            paths[i] = -1;
+            memory[i] = "" + array[i];
         }
         for (int i = 1; i < n; i++) {
             for (int j = i - 1; j >= 0; j--) {
                 if (array[i] > array[j] && dp[i] <= dp[j]) {
-                    int temp = dp[j] + 1;
-                    paths[i] = j;
-                    dp[i] = temp;
-                    if (temp > max) {
-                        max = temp;
+                    int maxTemp = dp[j] + 1;
+                    memory[i] = memory[j] + " " + array[i];
+                    dp[i] = maxTemp;
+                    if (maxTemp > max) {
+                        max = maxTemp;
                         maxIndex = i;
                     }
                 }
             }
         }
-        int i = maxIndex;
-        LinkedList<Integer> memory = new LinkedList<>();
-        while (i >=  0) {
-            memory.addFirst(array[i]);
-            i = paths[i];
-        }
-        for (Integer j : memory) {
-            System.out.print(j + " ");
-        }
-
+        return memory[maxIndex];
     }
 
 }

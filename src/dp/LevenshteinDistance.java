@@ -1,3 +1,5 @@
+package dp;
+
 import java.util.Scanner;
 
 public class LevenshteinDistance {
